@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KawaiiBot"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="206.757" Width="598.108">
     <Grid>
-        
+        <TextBox
+            x:Name="authKey"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Width="400px"></TextBox>
+        <Button
+            x:Name="runBtn"
+            Content="Abdula, fire!"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Margin="10, 10, 10, 10"
+            Click="RunBtn_Click"></Button>
     </Grid>
 </Window>

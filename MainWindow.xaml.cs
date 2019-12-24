@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,61 @@ namespace KawaiiBot
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        BackgroundWorker asyncWorker;
         public MainWindow()
         {
             InitializeComponent();
+
+            asyncWorker = new BackgroundWorker();
+            asyncWorker.DoWork += launchWorkerAsync;
+        }
+
+        async void launchWorkerAsync(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            string key = e.Argument as String;
+
+            try
+            {
+
+                var Bot = new Telegram.Bot.TelegramBotClient(key);
+                await Bot.SetWebhookAsync("");
+                int offset = 0;
+                while (true)
+                {
+                    var messages = await Bot.GetUpdatesAsync(offset);
+                    foreach (var message in messages)
+                    {
+                        var msgText = message.Message;
+                        if (msgText.Type == Telegram.Bot.Types.Enums.MessageType.Text)
+                        {
+                            if (msgText.Text == "/saysomething")
+                            {
+                                await Bot.SendTextMessageAsync(msgText.Chat.Id, "Ня!", replyToMessageId: msgText.MessageId);
+                            }
+                            if (msgText.Text.ToUpper() == "YARE YARE")
+                            {
+                                await Bot.SendPhotoAsync(msgText.Chat.Id, "https://i.pinimg.com/originals/bd/6e/5a/bd6e5a259c33a226550960b91ff857c4.jpg");
+                                await Bot.SendTextMessageAsync(msgText.Chat.Id, "Daze, красавчик ;^)");
+                            }
+                        }
+                        offset = message.Id + 1;
+                    }
+                }
+
+            } catch (Telegram.Bot.Exceptions.ApiRequestException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+        }
+
+        private void RunBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!asyncWorker.IsBusy)
+            {
+                asyncWorker.RunWorkerAsync("999037946:AAHbd0xIjp5l6iS0aGuVB-jIP2R4a99EUFo");
+            }
         }
     }
 }
