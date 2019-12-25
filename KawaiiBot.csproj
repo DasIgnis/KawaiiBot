@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AIMLbot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\AIMLbot.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -92,6 +96,38 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="aiml\AI.aiml" />
+    <None Include="aiml\Atomic.aiml" />
+    <None Include="aiml\Biography.aiml" />
+    <None Include="aiml\bot.aiml" />
+    <None Include="aiml\Botmaster.aiml" />
+    <None Include="aiml\Client.aiml" />
+    <None Include="aiml\Computers.aiml" />
+    <None Include="aiml\CustomTagTest.aiml" />
+    <None Include="aiml\Default.aiml" />
+    <None Include="aiml\Emotion.aiml" />
+    <None Include="aiml\Food.aiml" />
+    <None Include="aiml\Geography.aiml" />
+    <None Include="aiml\History.aiml" />
+    <None Include="aiml\Inquiry.aiml" />
+    <None Include="aiml\Interjection.aiml" />
+    <None Include="aiml\IU.aiml" />
+    <None Include="aiml\Knowledge.aiml" />
+    <None Include="aiml\Literature.aiml" />
+    <None Include="aiml\Money.aiml" />
+    <None Include="aiml\Movies.aiml" />
+    <None Include="aiml\Music.aiml" />
+    <None Include="aiml\Personality.aiml" />
+    <None Include="aiml\Philosophy.aiml" />
+    <None Include="aiml\Pickup.aiml" />
+    <None Include="aiml\Predicates.aiml" />
+    <None Include="aiml\Reduce.aiml" />
+    <None Include="aiml\Reductions.aiml" />
+    <None Include="aiml\Salutations.aiml" />
+    <None Include="aiml\Science.aiml" />
+    <None Include="aiml\Stack.aiml" />
+    <None Include="aiml\Stories.aiml" />
+    <None Include="aiml\That.aiml" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -101,5 +137,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="config\DefaultPredicates.xml" />
+    <Resource Include="config\GenderSubstitutions.xml" />
+    <Resource Include="config\Person2Substitutions.xml" />
+    <Resource Include="config\PersonSubstitutions.xml" />
+    <Resource Include="config\Settings.xml" />
+    <Resource Include="config\Splitters.xml" />
+    <Resource Include="config\Substitutions.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>
