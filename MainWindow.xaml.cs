@@ -211,7 +211,7 @@ namespace KawaiiBot
                         }
                         else if (msgText.Type == Telegram.Bot.Types.Enums.MessageType.Photo)
                         {
-                            DownloadFile(msgText.Photo[msgText.Photo.Length - 1].FileId, "");
+                            ProcessImage(msgText.Photo[msgText.Photo.Length - 1].FileId, "", msgText.Chat.Id);
                         }
                         offset = message.Id + 1;
                     }
@@ -233,7 +233,7 @@ namespace KawaiiBot
             }
         }
 
-        private static async void DownloadFile(string fileId, string path)
+        private static async void ProcessImage(string fileId, string path, long chatId)
         {
             try
             {
@@ -241,12 +241,15 @@ namespace KawaiiBot
                 var file = await Bot.GetFileAsync(fileId);
                 FileStream fs = new FileStream(fileName, FileMode.Create);
                 await Bot.DownloadFileAsync(file.FilePath, fs);
-                Image img = System.Drawing.Image.FromFile(fileName);
-
-                //TODO
-                string cl_name = predict(img);
                 fs.Close();
                 fs.Dispose();
+
+                Image img = System.Drawing.Image.FromFile(fileName);
+
+                string cl_name = predict(img);
+                
+
+                await Bot.SendTextMessageAsync(chatId, cl_name);
             }
             catch (Exception ex)
             {
