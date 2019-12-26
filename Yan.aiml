@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0" language="ru_RU">
+<category>	
+	<pattern>* МОНЕТКУ</pattern>
+	<template>
+    <random>
+      <li>Выпал орел!</li>
+      <li>Выпала решка!</li>
+      <li>Закатилась под кровать...</li>
+      <li>Не поверите, застряла ребром!</li>
+      <li>Для броска монетки сделайте ее перевод на 5442 5733 0659 5944</li>
+      <li>Сделал бросок криптомонетки - трудно сказать на что она приземлилась.</li>
+    </random>
+  </template>
+</category>
+  
+  <category>
+    <pattern>КОТОРЫЙ ЧАС*</pattern>
+    <template>
+     time
+    </template>
+  </category>
+  
+  <category>
+    <pattern>* ФУТБОЛ *</pattern>
+    <template>
+      foot
+    </template>
+  </category>
+
+  <category>
+    <pattern>* АНЕКДОТ</pattern>
+    <template>
+      anec
+    </template>
+  </category>
+
+  <category>
+    <pattern>* ВСЛУХ</pattern>
+    <template>
+      voice
+    </template>
+  </category>
+
+  <category>
+    <pattern> * САМУЮ КРАСИВУЮ КАРТИНКУ *</pattern>
+    <template>
+      beauty
+    </template>
+  </category>
+
+  <category>
+    <pattern> * СТИХОТВОРЕНИЕ</pattern>
+    <template>
+      <random>
+       <li>poetryFlag Мороз и солнце; день чудесный!
+        Еще ты дремлешь, друг прелестный —
+        Пора, красавица, проснись:
+        Открой сомкнуты негой взоры
+        Навстречу северной Авроры,
+        Звездою севера явись!</li>
+        <li>
+          poetryFlag
+          Ночь, улица, фонарь, аптека,
+          Бессмысленный и тусклый свет.
+          Живи еще хоть четверть века -
+          Все будет так. Исхода нет.
+          Умрешь - начнешь опять сначала
+          И повторится все, как встарь:
+          Ночь, ледяная рябь канала,
+          Аптека, улица, фонарь.
+        </li>
+        <li>
+          poetryFlag    Я
+          достаю
+          из широких штанин
+          дубликатом
+          бесценного груза.
+          Читайте,
+          завидуйте,
+          я —
+          гражданин
+          Советского Союза.</li>
+      </random>
+    </template>
+  </category>
+
+ 
+
+
+</aiml>
