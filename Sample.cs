@@ -99,21 +99,7 @@ namespace KawaiiBot
         /// <returns></returns>
         public override string ToString()
         {
-            string result = "Sample decoding : " + Config.current.figures[actualClassId] + "(" + actualClassId.ToString() + "); " + Environment.NewLine + "Input : ";
-            for (int i = 0; i < input.Length; ++i) result += input[i].ToString() + "; ";
-            result += Environment.NewLine + "Output : ";
-            if (output == null) result += "null;";
-            else
-                for (int i = 0; i < output.Length; ++i) result += output[i].ToString() + "; ";
-            result += Environment.NewLine + "Error : ";
-
-            if (error == null) result += "null;";
-            else
-                for (int i = 0; i < error.Length; ++i) result += error[i].ToString() + "; ";
-            result += Environment.NewLine + "Recognized : " + Config.current.figures[recognizedClassId] + "(" + recognizedClassId.ToString() + "); " + Environment.NewLine;
-
-
-            return result;
+            return Config.current.figures[actualClassId];
         }
 
         /// <summary>

@@ -85,12 +85,20 @@ namespace KawaiiBot
         public Bitmap processBitmap(Bitmap raw_image)
         {
             //ClearImage();
+            double floor = 0;
             Bitmap prepared = grayShaded(raw_image);
             for (int i = 0; i < Config.current.width; i++)
                 for (int j = 0; j < Config.current.height; j++)
                 {
                     var p = prepared.GetPixel(i, j);
-                    prepared.SetPixel(i, j, p.R < 100 ? Color.Black : Color.White);
+                    floor += p.R;
+                }
+            floor = floor / (Config.current.width * Config.current.height);
+            for (int i = 0; i < Config.current.width; i++)
+                for (int j = 0; j < Config.current.height; j++)
+                {
+                    var p = prepared.GetPixel(i, j);
+                    prepared.SetPixel(i, j, p.R < floor ? Color.Black : Color.White);
                 }
             return prepared;
         }
