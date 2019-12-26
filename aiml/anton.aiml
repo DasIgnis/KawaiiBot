@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<aiml version = "1.0.1" encoding = "UTF-8"?>
+   <category>
+      <pattern>ПРИВЕТ Я *</pattern>
+      <template>
+         ПРИВЕТ <set name = "username"> <star/>! </set>
+      </template>  
+   </category>  
+   
+   <category>
+      <pattern>ПОКА</pattern>
+      <template>
+         Пока, <get name = "username"/>!
+      </template>  
+   </category>
+   
+   <category>
+      <pattern>ЧТО НА СЧЕТ ПОГОДЫ</pattern>
+      <template>Какая сейчас погода?</template>  
+   </category>
+   
+   <category>
+      <pattern>ПАСМУРНАЯ</pattern>
+      <that>Какая сейчас погода?</that>
+      <template>За тучами всегда скрывается солнце, <get name = "username"/>.</template>
+   </category>
+   
+   <category>
+      <pattern>СОЛНЕЧНАЯ</pattern>
+      <that>Какая сейчас погода?</that>
+      <template>Вот и отлично, <get name = "username"/>.</template>
+   </category>
+   
+   <category>
+      <pattern>СНЕЖНАЯ</pattern>
+      <that>Какая сейчас погода?</that>
+      <template>Не ври мне, <get name = "username"/>.</template>
+   </category>
+   
+</aiml>

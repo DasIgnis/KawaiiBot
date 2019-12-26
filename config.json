@@ -1,0 +1,15 @@
+{ 
+	"figures":["UA", "RUB", "USD", "EUR", "GBP", "AIR", "PIZZA"],
+   "epoches":10,
+   "training_size":400,
+   "test_size":100,
+   "width":150,
+   "height":200,
+   "camera_width":640,
+   "camera_height":480,
+   "net_sctructure":"350;700;100;7",
+   "accuracy":0.1,
+   "parallel":true,
+   "figure":"PIZZA",
+   "snapshot_timer_cooldown":100
+}
