@@ -72,6 +72,22 @@ namespace KawaiiBot
                                 {
                                     await Bot.SendPhotoAsync(msgText.Chat.Id, res.Output.Remove(res.Output.Count() - 1, 1));
                                 }
+                                else if (res.Output == "time.")
+                                {
+                                    var time = "У меня " + DateTime.Now.Hour.ToString() +":"+ DateTime.Now.Minute.ToString() + ", сколько у вас - не знаю";
+                                    await Bot.SendTextMessageAsync(msgText.Chat.Id, time);
+                                }
+                                else if (res.Output == "foot.")
+                                {
+                                    string table = football.getTable();
+                                    await Bot.SendTextMessageAsync(msgText.Chat.Id, table);
+                                }
+
+                                else if (res.Output == "anec.")
+                                {
+                                    string anec = Anecdot.anec();
+                                    await Bot.SendTextMessageAsync(msgText.Chat.Id, anec);
+                                }
                                 else
                                 {
                                     await Bot.SendTextMessageAsync(msgText.Chat.Id, res.Output);
