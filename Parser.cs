@@ -31,7 +31,7 @@ namespace KawaiiBot
                 string id = line.Split(':')[0];
                 List<string> presc = new List<string>(line.Split(':')[1].Split(';')[0].Split(',').Select(s => s =  s.Trim()));
                 List<string> conc = new List<string> { line.Split(':')[1].Split(';')[1].Trim() };
-                string desc = line.Split(':')[1].Split(";")[2];
+                string desc = line.Split(':')[1].Split(';')[2];
                 double CF = double.Parse(line.Split(':')[1].Split(';')[3].Trim());
                 rules.Add(new Rule(id, presc, conc, desc, CF));
             }

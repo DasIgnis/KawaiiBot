@@ -78,6 +78,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BaseNetwork.cs" />
+    <Compile Include="Fact.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ProofNodeCF.cs" />
+    <Compile Include="Rule.cs" />
     <Compile Include="Sample.cs" />
     <Compile Include="SamplesSet.cs" />
     <Page Include="MainWindow.xaml">

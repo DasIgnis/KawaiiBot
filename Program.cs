@@ -127,7 +127,8 @@ namespace KawaiiBot
             {
                 return toReturn;
             }
-            else {
+            else
+            {
                 return toReturn.Concat(newRes).ToList();
             }
         }
@@ -206,7 +207,7 @@ namespace KawaiiBot
             facts = Parser.getFactsInput("..\\..\\FACTS.txt");
             rules = Parser.getRulesInput("..\\..\\RULES.txt");
 
-            List<Fact> trueFacts = facts.FindAll(x => true_facts.Any(x.description.Contains));
+            List<Fact> trueFacts = facts.FindAll(x => true_facts.Any(x.description.ToLower().Contains));
 
             if (provable != "")
             {
@@ -219,9 +220,19 @@ namespace KawaiiBot
             }
             else
             {
-                List<ProofNodeCF> proofNodeCFs = directProofAllCF(true_facts, new HashSet<Rule>());
+                List<ProofNodeCF> proofNodeCFs = directProofAllCF(trueFacts, new HashSet<Rule>());
                 List<string> proofstrings = new List<string>();
-                printProofNodeCF(proofNodeCFs, proofstrings);
+                foreach (ProofNodeCF node in proofNodeCFs)
+                {
+                    foreach (var fact in node.nextFacts)
+                    {
+                        if (fact.id.Contains("Игра"))
+                        {
+                            proofstrings.Add(fact.description);
+                        }
+                    }
+                    //printProofNodeCF(proofNodeCFs, proofstrings);
+                }
                 return proofstrings;
             }
         }
