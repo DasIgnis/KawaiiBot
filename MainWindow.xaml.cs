@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Speech.Synthesis;
 
 namespace KawaiiBot
 {
@@ -87,6 +88,52 @@ namespace KawaiiBot
                                 {
                                     string anec = Anecdot.anec();
                                     await Bot.SendTextMessageAsync(msgText.Chat.Id, anec);
+
+                                   
+
+
+                                }
+                                else if (res.Output == "voice.")
+                                {
+                                    string anec = Anecdot.anec();
+
+                                    SpeechSynthesizer speaker = new SpeechSynthesizer();
+
+                                    speaker.Rate = 2;
+                                    speaker.Volume = 100;
+                                    speaker.Speak("Hello world.");
+
+
+                                    speaker.SetOutputToWaveFile("soundfile.ogg");
+                                    speaker.Speak(anec + "\n АХАХАХАХАХАХ");
+                                    speaker.SetOutputToDefaultAudioDevice();
+
+                                    var fStream = new FileStream("soundfile.ogg", FileMode.OpenOrCreate);
+                                    await Bot.SendVoiceAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream));
+                                }
+
+                                else if (res.Output == "beauty.")
+                                {                                
+                                    var fStream = new FileStream("beauty.jpg", FileMode.OpenOrCreate);
+                                    await Bot.SendPhotoAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream),"Красивее не сыскать");
+                                }
+
+                                else if (res.Output.Contains("poetryFlag"))
+                                {
+                                    var poem = res.Output.Replace("poetryFlag", "");
+                                    SpeechSynthesizer speaker = new SpeechSynthesizer();
+
+                                    speaker.Rate = 2;
+                                    speaker.Volume = 100;
+                                    speaker.Speak("Hello world.");
+
+
+                                    speaker.SetOutputToWaveFile("soundfile.ogg");
+                                    speaker.Speak(poem);
+                                    speaker.SetOutputToDefaultAudioDevice();
+
+                                    var fStream = new FileStream("soundfile.ogg", FileMode.OpenOrCreate);
+                                    await Bot.SendVoiceAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream));
                                 }
                                 else
                                 {
