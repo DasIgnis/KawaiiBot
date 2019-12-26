@@ -169,14 +169,12 @@ namespace KawaiiBot
 
                                     speaker.Rate = 2;
                                     speaker.Volume = 100;
-                                    speaker.Speak("Hello world.");
 
-
-                                    speaker.SetOutputToWaveFile("soundfile.ogg");
+                                    speaker.SetOutputToWaveFile("soundfile.wav");
                                     speaker.Speak(anec + "\n АХАХАХАХАХАХ");
                                     speaker.SetOutputToDefaultAudioDevice();
 
-                                    var fStream = new FileStream("soundfile.ogg", FileMode.OpenOrCreate);
+                                    var fStream = new FileStream("soundfile.wav", FileMode.OpenOrCreate);
                                     await Bot.SendVoiceAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream));
                                     fStream.Dispose();
                                 }
@@ -192,14 +190,12 @@ namespace KawaiiBot
 
                                     speaker.Rate = 2;
                                     speaker.Volume = 100;
-                                    speaker.Speak("Hello world.");
 
-
-                                    speaker.SetOutputToWaveFile("soundfile.ogg");
+                                    speaker.SetOutputToWaveFile("soundfile.wav");
                                     speaker.Speak(poem);
                                     speaker.SetOutputToDefaultAudioDevice();
 
-                                    var fStream = new FileStream("soundfile.ogg", FileMode.OpenOrCreate);
+                                    var fStream = new FileStream("soundfile.wav", FileMode.OpenOrCreate);
                                     await Bot.SendVoiceAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream));
                                     fStream.Dispose();
                                 }
