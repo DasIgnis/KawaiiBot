@@ -110,11 +110,12 @@ namespace KawaiiBot
 
                                     var fStream = new FileStream("soundfile.ogg", FileMode.OpenOrCreate);
                                     await Bot.SendVoiceAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream));
+                                    fStream.Dispose();
                                 }
 
                                 else if (res.Output == "beauty.")
                                 {                                
-                                    var fStream = new FileStream("beauty.jpg", FileMode.OpenOrCreate);
+                                    var fStream = new FileStream("..\\..\\1beauty.jpg", FileMode.OpenOrCreate);
                                     await Bot.SendPhotoAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream),"Красивее не сыскать");
                                 }
 
@@ -134,6 +135,7 @@ namespace KawaiiBot
 
                                     var fStream = new FileStream("soundfile.ogg", FileMode.OpenOrCreate);
                                     await Bot.SendVoiceAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream));
+                                    fStream.Dispose();
                                 }
                                 else
                                 {
