@@ -135,7 +135,11 @@ namespace KawaiiBot
                             users[msgText.Chat.Id] = currentUser;
                         }
 
-                        if (msgText.Type == Telegram.Bot.Types.Enums.MessageType.Text)
+                        if (msgText.Type == Telegram.Bot.Types.Enums.MessageType.Text && msgText.Text.Contains("/game"))
+                        {
+                            string[] clues = msgText.Text.Split(',');
+                        }
+                        else if (msgText.Type == Telegram.Bot.Types.Enums.MessageType.Text)
                         {
                             Console.WriteLine(msgText.Text.ToUpper());
                             Request r = new Request(msgText.Text, currentUser, bot);
@@ -169,6 +173,9 @@ namespace KawaiiBot
 
                                     speaker.Rate = 2;
                                     speaker.Volume = 100;
+
+                                    speaker.Speak(anec);
+                                    Console.WriteLine(anec);
 
                                     speaker.SetOutputToWaveFile("soundfile.wav");
                                     speaker.Speak(anec + "\n АХАХАХАХАХАХ");
