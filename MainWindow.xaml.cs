@@ -20,6 +20,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 
 using Image = System.Drawing.Image;
+using Path = System.IO.Path;
 
 namespace KawaiiBot
 {
@@ -32,7 +33,9 @@ namespace KawaiiBot
         BackgroundWorker asyncWorker;
         AIMLbot.Bot bot;
         static Telegram.Bot.TelegramBotClient Bot;
+        static NeuralNetwork net;
         User user;
+        static ImageProcessor generator;
         public MainWindow()
         {
             InitializeComponent();
@@ -49,6 +52,56 @@ namespace KawaiiBot
 
             user.Predicates.addSetting("favouriteanimal", "default");
             user.Predicates.addSetting("name", "default");
+
+            Config.current = Config.LoadFromJson(Path.Combine("..", "..", "config.json"));
+            generator = new ImageProcessor();
+            initNet();
+            net.LoadFromJson(Path.Combine("..", "..", "bot.json"));
+        }
+
+        void initNet()
+        {
+            int[] structure = Config.current.net_sctructure.Split(';').Select((c) => int.Parse(c)).ToArray();
+            if (structure.Length < 2 || structure[0] != Config.current.width + Config.current.height || structure[structure.Length - 1] != Config.current.figures.Count)
+            {
+                return;
+            };
+
+            net = new NeuralNetwork(structure, x => 1 / (1 + Math.Exp(-x)));
+        }
+
+        static private Bitmap executeImage(Bitmap btm, int cx, int cy, int width, int height)
+        {
+            Bitmap res = new Bitmap(width, height);
+            for (int x = cx - width / 2; x < cx + width / 2; x++)
+            {
+                for (int y = cy - height / 2; y < cy + height / 2; y++)
+                {
+                    res.SetPixel(x - cx + width / 2, y - cy + height / 2, btm.GetPixel(x, y));
+                }
+            }
+            return res;
+        }
+
+        static private string predict(Image image)
+        {
+            try
+            {
+                Bitmap prepared = executeImage(new Bitmap(image), image.Width / 2, image.Height / 2,
+                        Config.current.width, Config.current.height);
+                Bitmap proc;
+                Sample fig = generator.GenerateFigure(prepared, Config.current.figure_id(Config.current.figure), out proc);
+
+                net.Predict(fig);
+
+                return fig.ToString();
+            }
+            catch (Exception r)
+            {
+                // Something unexpected went wrong.
+                // Maybe it is also necessary to terminate / restart the application.
+                return r.ToString();
+            }
         }
 
         async void launchWorkerAsync(object sender, DoWorkEventArgs e)
@@ -190,7 +243,8 @@ namespace KawaiiBot
                 await Bot.DownloadFileAsync(file.FilePath, fs);
                 Image img = System.Drawing.Image.FromFile(fileName);
 
-                //TODO 
+                //TODO
+                string cl_name = predict(img);
                 fs.Close();
                 fs.Dispose();
             }
