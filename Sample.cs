@@ -99,7 +99,7 @@ namespace KawaiiBot
         /// <returns></returns>
         public override string ToString()
         {
-            return Config.current.figures[actualClassId];
+            return Config.current.figures[recognizedClassId];
         }
 
         /// <summary>
