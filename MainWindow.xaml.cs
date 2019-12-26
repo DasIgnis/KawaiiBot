@@ -28,7 +28,7 @@ namespace KawaiiBot
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        Dictionary<long, User> users = new Dictionary<long, User>();
         BackgroundWorker asyncWorker;
         AIMLbot.Bot bot;
         static Telegram.Bot.TelegramBotClient Bot;
@@ -67,10 +67,25 @@ namespace KawaiiBot
                     foreach (var message in messages)
                     {
                         var msgText = message.Message;
+                        User currentUser;
+                        if (users.ContainsKey(msgText.Chat.Id))
+                        {
+                            currentUser = users[msgText.Chat.Id];
+                        }
+                        else
+                        {
+                            currentUser = new User("Уважаемый", bot);
+
+                            currentUser.Predicates.addSetting("favouriteanimal", "default");
+                            currentUser.Predicates.addSetting("name", "default");
+
+                            users[msgText.Chat.Id] = currentUser;
+                        }
+
                         if (msgText.Type == Telegram.Bot.Types.Enums.MessageType.Text)
                         {
                             Console.WriteLine(msgText.Text.ToUpper());
-                            Request r = new Request(msgText.Text.ToUpper(), user, bot);
+                            Request r = new Request(msgText.Text, currentUser, bot);
                             Result res = bot.Chat(r);
                             if (res.Output != "")
                             {
@@ -117,7 +132,6 @@ namespace KawaiiBot
                                     var fStream = new FileStream("..\\..\\1beauty.jpg", FileMode.OpenOrCreate);
                                     await Bot.SendPhotoAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream), "Красивее не сыскать");
                                 }
-
                                 else if (res.Output.Contains("poetryFlag"))
                                 {
                                     var poem = res.Output.Replace("poetryFlag", "");
