@@ -16,6 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Speech.Synthesis;
+using System.Drawing;
+using System.Drawing.Imaging;
+
+using Image = System.Drawing.Image;
 
 namespace KawaiiBot
 {
@@ -43,7 +47,8 @@ namespace KawaiiBot
             bot.isAcceptingUserInput = true;
             user = new User("Уважаемый", bot);
 
-            user.Predicates.addSetting("favourite-animal", "default");
+            user.Predicates.addSetting("favouriteanimal", "default");
+            user.Predicates.addSetting("name", "default");
         }
 
         async void launchWorkerAsync(object sender, DoWorkEventArgs e)
@@ -75,7 +80,7 @@ namespace KawaiiBot
                                 }
                                 else if (res.Output == "time.")
                                 {
-                                    var time = "У меня " + DateTime.Now.Hour.ToString() +":"+ DateTime.Now.Minute.ToString() + ", сколько у вас - не знаю";
+                                    var time = "У меня " + DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ", сколько у вас - не знаю";
                                     await Bot.SendTextMessageAsync(msgText.Chat.Id, time);
                                 }
                                 else if (res.Output == "foot.")
@@ -83,15 +88,10 @@ namespace KawaiiBot
                                     string table = football.getTable();
                                     await Bot.SendTextMessageAsync(msgText.Chat.Id, table);
                                 }
-
                                 else if (res.Output == "anec.")
                                 {
                                     string anec = Anecdot.anec();
                                     await Bot.SendTextMessageAsync(msgText.Chat.Id, anec);
-
-                                   
-
-
                                 }
                                 else if (res.Output == "voice.")
                                 {
@@ -112,11 +112,10 @@ namespace KawaiiBot
                                     await Bot.SendVoiceAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream));
                                     fStream.Dispose();
                                 }
-
                                 else if (res.Output == "beauty.")
-                                {                                
+                                {
                                     var fStream = new FileStream("..\\..\\1beauty.jpg", FileMode.OpenOrCreate);
-                                    await Bot.SendPhotoAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream),"Красивее не сыскать");
+                                    await Bot.SendPhotoAsync(msgText.Chat.Id, new Telegram.Bot.Types.InputFiles.InputOnlineFile(fStream), "Красивее не сыскать");
                                 }
 
                                 else if (res.Output.Contains("poetryFlag"))
@@ -151,7 +150,8 @@ namespace KawaiiBot
                     }
                 }
 
-            } catch (Telegram.Bot.Exceptions.ApiRequestException exception)
+            }
+            catch (Telegram.Bot.Exceptions.ApiRequestException exception)
             {
                 Console.WriteLine(exception.Message);
                 asyncWorker.RunWorkerAsync("999037946:AAHbd0xIjp5l6iS0aGuVB-jIP2R4a99EUFo");
@@ -170,9 +170,13 @@ namespace KawaiiBot
         {
             try
             {
+                string fileName = "./temp" + fileId + ".jpg";
                 var file = await Bot.GetFileAsync(fileId);
-                FileStream fs = new FileStream("./temp" + fileId + ".jpg", FileMode.Create);
+                FileStream fs = new FileStream(fileName, FileMode.Create);
                 await Bot.DownloadFileAsync(file.FilePath, fs);
+                Image img = System.Drawing.Image.FromFile(fileName);
+
+                //TODO 
                 fs.Close();
                 fs.Dispose();
             }
@@ -192,6 +196,7 @@ namespace KawaiiBot
             user = new User("Уважаемый", bot);
 
             user.Predicates.addSetting("favouriteanimal", "default");
+            user.Predicates.addSetting("name", "default");
         }
     }
 }
